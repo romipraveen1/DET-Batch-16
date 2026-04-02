@@ -5,7 +5,7 @@ import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import { Lock } from 'lucide-react';
 import { forgotPassword, verifyOtp, resetPassword } from '../api/forgotpassword/forgotPassword';
-import CountDownTimer from './CountdownTimer';
+import CountDownTimer from './CountDownTimer';
 
 
 const ForgotPassword: React.FC = () => {
