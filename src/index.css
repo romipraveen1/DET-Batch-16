@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Prevent horizontal overflow on the entire page except for designated scroll areas */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Ensure all containers respect viewport width */
+* {
+  box-sizing: border-box;
+}
+
+/* Prevent multiple scrollbars - only allow table container to scroll */
+.no-horizontal-scroll {
+  overflow-x: hidden !important;
+}
+
+/* Table container with horizontal scroll - ONLY scrollable area */
+.table-container {
+  overflow-x: auto;
+  overflow-y: visible;
+  position: relative;
+}
+
+/* Allow table to expand naturally to show full content */
+.table-container table {
+  table-layout: auto;
+  white-space: nowrap;
+}
+
+/* Ensure horizontal scrollbar is visible and styled */
+.table-container::-webkit-scrollbar {
+  height: 12px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #6c757d;
+  border-radius: 6px;
+  border: 2px solid #f8f9fa;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #495057;
+}
+
+/* Firefox scrollbar styling */
+.table-container {
+  scrollbar-width: thin;
+  scrollbar-color: #6c757d #f8f9fa;
+}
+
+/* Responsive table improvements */
+@media (max-width: 768px) {
+  .table-container {
+    font-size: 0.875rem;
+  }
+
+  .table-container th,
+  .table-container td {
+    padding: 0.5rem 0.25rem;
+  }
+}
+
+/* Fixed table layout for consistent column widths */
+.table-fixed {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table-fixed th,
+.table-fixed td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Legacy table-responsive class */
+.table-responsive {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table-responsive th,
+.table-responsive td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.description-cell {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  max-width: 300px;
+}
+
+/* Ensure Test Case table cells align to the top when content wraps */
+.testcase-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.testcase-table th,
+.testcase-table td {
+  vertical-align: top;
+  overflow: hidden;
+}
+
+/* Fix width for Description column to enable ellipsis */
+.testcase-table th:nth-child(2),
+.testcase-table td:nth-child(2) {
+  width: 20rem; /* ~320px similar to Tailwind max-w-xs */
+}
+
+/* Inner block that performs the actual clamping with ellipsis */
+.description-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* show two lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
