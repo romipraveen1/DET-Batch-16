@@ -1,24 +1,32 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
-const  CountDownTimer =({ start = 10 }) => {
-  const navigate = useNavigate();
-  const [timeLeft, setTimeLeft] = useState(start);
+interface CountDownTimerProps {
+  start: number; // seconds
+}
+
+const CountDownTimer: React.FC<CountDownTimerProps> = ({ start }) => {
+  const [seconds, setSeconds] = useState(start);
 
   useEffect(() => {
-    if (timeLeft <= 0) return;
+    setSeconds(start);
+  }, [start]);
 
-    const interval = setInterval(() => {
-      setTimeLeft(prev => prev - 1);
-    }, 1000);
+  useEffect(() => {
+    if (seconds <= 0) return;
+    const timer = setTimeout(() => setSeconds((s) => s - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [seconds]);
 
-    return () => clearInterval(interval);
-  }, [timeLeft]);
+  const minutes = Math.floor(seconds / 60);
+  const secs = seconds % 60;
 
-  if(timeLeft === 0){
-    navigate('/login');
+  return (
+    <p className="text-sm text-gray-500 text-center">
+      {seconds > 0
+        ? `OTP expires in ${minutes}:${secs.toString().padStart(2, '0')}`
+        : 'OTP has expired. Please request a new one.'}
+    </p>
+  );
+};
 
-  return <div>Time Left: {timeLeft}</div>;
-}
-}
 export default CountDownTimer;
